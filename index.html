@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Rock Paper Scissors</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <h1>Rock Paper Scissors</h1>
+
+  <div class="scoreboard">
+    <div>👤 You: <span id="player-score">0</span></div>
+    <div>🤖 Computer: <span id="computer-score">0</span></div>
+  </div>
+
+  <div class="choices">
+    <button onclick="play('rock')">
+      <img src="images/rock.png" alt="Rock">
+    </button>
+    <button onclick="play('paper')">
+      <img src="images/paper.png" alt="Paper">
+    </button>
+    <button onclick="play('scissors')">
+      <img src="images/scissors.png" alt="Scissors">
+    </button>
+  </div>
+
+  <div class="result" id="result"></div>
+
+  <button class="reset-btn" onclick="resetGame()">🔄 Reset</button>
+
+  <script>
+    let playerScore = 0;
+    let computerScore = 0;
+
+    function play(playerChoice) {
+      const choices = ['rock', 'paper', 'scissors'];
+      const computerChoice = choices[Math.floor(Math.random() * 3)];
+      let resultText = `You chose ${playerChoice}, computer chose ${computerChoice}. `;
+
+      if (playerChoice === computerChoice) {
+        resultText += "It's a tie!";
+      } else if (
+        (playerChoice === 'rock' && computerChoice === 'scissors') ||
+        (playerChoice === 'paper' && computerChoice === 'rock') ||
+        (playerChoice === 'scissors' && computerChoice === 'paper')
+      ) {
+        resultText += "You win!";
+        playerScore++;
+      } else {
+        resultText += "You lose!";
+        computerScore++;
+      }
+
+      document.getElementById('result').textContent = resultText;
+      document.getElementById('player-score').textContent = playerScore;
+      document.getElementById('computer-score').textContent = computerScore;
+    }
+
+    function resetGame() {
+      playerScore = 0;
+      computerScore = 0;
+      document.getElementById('player-score').textContent = 0;
+      document.getElementById('computer-score').textContent = 0;
+      document.getElementById('result').textContent = "";
+    }
+  </script>
+
+</body>
+</html>
